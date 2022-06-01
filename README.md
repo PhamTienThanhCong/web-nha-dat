@@ -1,64 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Trang Web Môi Giới Nhà Đất
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Công nghệ sử dụng:
+- laravel 9
+- mySQL
 
-## About Laravel
+## Mô tả đối tượng sử dụng
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Người dùng, tài khoản khách
+- Trang chủ
+- Xem, tìm kiếm bất động sản
+- Xem chi tiết bất động sản.
+- Xem thông tin môi giới
+- Để lại lời nhắn tư vấn
+### Môi giới
+- Đăng kí, đăng nhập đăng xuất
+- Xem chỉnh sửa thông tin tài khoản
+- Đăng thông tin bất động sản
+- Chỉnh sửa thông tin về bất động sản
+- Danh sách khách hàng muốn tư vấn
+### Admin
+-	Đăng nhập, đăng xuất, đổi mật khẩu
+-	Xác nhận, xóa, chặn tài khoản môi giới
+-	Duyệt thông tin bất động sản
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Cơ sở dữ liệu
+- Môi giới
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Stt | Tên | Loại dữ liệu | Mô tả |
+| :----: | :----: | :----: | :---- |
+| 1 | id | bigint | mã tự động tăng | 
+| 2 | name | varchar(50) | Tên người dùng | 
+| 3 | email | varchar(100) | Địa chỉ email duy nhất | 
+| 4 | phone_number | varchar(20) | Số điện thoại | 
+| 5 | gender | tinyint | Giới tính: 0->nam, 1->nữ | 
+| 6 | avatar | varchar(50) | Tên ảnh |
+| 7 | address | varchar(250) | Địa chỉ nơi ở | 
+| 8 | description | text | mô tả các nhân | 
+| 9 | password | varchar(100) | Mật khẩu mã hóa | 
+| 10 | lever | tinyint | Cấp: 1 đang chờ, 2 đã duyệt, 3 admin, 0 đã chặn | 
 
-## Learning Laravel
+- Thể loại nhà đất
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Stt | Tên | Loại dữ liệu | Mô tả |
+| :----: | :----: | :----: | :---- |
+| 1 | id | bigint | mã tự động tăng | 
+| 2 | link_name | varchar(100) | Tên Loại | 
+| 3 | link | varchar(100) | Đường dẫn |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Tin nhà đất
+ 
+| Stt | Tên | Loại dữ liệu | Mô tả |
+| :----: | :----: | :----: | :---- |
+| 1 | id | bigint | mã tự động tăng | 
+| 2 | admins_id | bigint | nối tới bảng môi giới | 
+| 3 | title | varchar(250) | Tên Loại | 
+| 4 | price | float | Giá tiền |
+| 5 | price_type | tinyint | Loại tiền: 1-triệu, 2-tỷ |
+| 6 | address | varchar(100) | Địa chỉ |
+| 7 | description1 | varchar(250) | Mô tả ngắn |
+| 8 | description2 | varchar(100) | Mô tả chi tiết |
+| 9 | type | tinyint | Loại bất động sản: 1 : mua, 2 : bán |
+| 10 | done | tinyint | Tình trạng bất động sản: 1 : đang chờ, 2 : đã duyệt, 3 : đã hết, 0 đã xóa |
 
-## Laravel Sponsors
+- Ảnh mô tả
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+| Stt | Tên | Loại dữ liệu | Mô tả |
+| :----: | :----: | :----: | :---- |
+| 1 | id | bigint | mã tự động tăng | 
+| 2 | posts_id | bigint | nối tới bảng tin nhà đất | 
+| 3 | img | varchar(50) | Tên ảnh mô tả | 
 
-### Premium Partners
+- Thẻ Tag
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+| Stt | Tên | Loại dữ liệu | Mô tả |
+| :----: | :----: | :----: | :---- |
+| 1 | id | bigint | mã tự động tăng | 
+| 2 | posts_id | bigint | nối tới bảng tin nhà đất | 
+| 3 | tags_id | bigint | Nối tới bảng thể loại nhà đất |
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
