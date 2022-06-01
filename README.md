@@ -78,3 +78,11 @@
 | 2 | posts_id | bigint | nối tới bảng tin nhà đất | 
 | 3 | tags_id | bigint | Nối tới bảng thể loại nhà đất |
 
+- Bảng liên hệ
+
+| Stt | Tên | Loại dữ liệu | Mô tả |
+| :----: | :----: | :----: | :---- |
+| 1 | id | bigint | mã tự động tăng | 
+| 2 | posts_id | bigint | nối tới bảng tin nhà đất | 
+| 3 | name | varchar(20) | Tên |
+| 3 | phone_number | varchar(20) | Số điện thoại |
