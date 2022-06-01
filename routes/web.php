@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/admin/dang-ki', [AdminController::class, 'register'])->name('admin.register');
+Route::post('/admin/login-processing', [AdminController::class, 'loginProcessing'])->name('admin.loginProcessing');
+Route::post('/admin/register-processing', [AdminController::class, 'registerProcessing'])->name('admin.registerProcessing');
+Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+Route::get('/admin/tai-khoan-cua-toi', [AdminController::class, 'show'])->name('admin.myAccount');
+Route::get('/moi-gioi/tai-khoan-cua-toi', [AdminController::class, 'show'])->name('seller.myAccount');
+Route::post('/admin/update', [AdminController::class, 'update'])->name('admin.myAccountUpdate');
+Route::post('/admin/update-password', [AdminController::class, 'update'])->name('admin.myAccountUpdatePassword');
