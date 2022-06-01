@@ -35,7 +35,7 @@
 | 5 | gender | tinyint | Giới tính: 0->nam, 1->nữ | 
 | 6 | avatar | varchar(50) | Tên ảnh |
 | 7 | address | varchar(250) | Địa chỉ nơi ở | 
-| 8 | description | text | mô tả các nhân | 
+| 8 | company | varchar(250) | Công ty | 
 | 9 | password | varchar(100) | Mật khẩu mã hóa | 
 | 10 | lever | tinyint | Cấp: 1 đang chờ, 2 đã duyệt, 3 admin, 0 đã chặn | 
 
