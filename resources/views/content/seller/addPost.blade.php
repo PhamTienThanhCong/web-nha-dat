@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label>Ảnh mô tả</label>
                     <div class="input-group col-xs-12">
-                        <input type="file" id="gallery-photo-add" name="images" class="form-control" multiple required>
+                        <input type="file" id="gallery-photo-add" name="photos[]" class="form-control" multiple required>
                     </div>
                     <br>
                     <div id="group-img">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleAddress">Địa điểm</label>
-                    <textarea class="form-control" id="exampleAddress" rows="3" placeholder="Địa điểm tòa nhà" required></textarea>
+                    <textarea name="address" class="form-control" id="exampleAddress" rows="3" placeholder="Địa điểm tòa nhà" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputTag">Thẻ tag</label>

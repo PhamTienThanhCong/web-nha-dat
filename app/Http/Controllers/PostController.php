@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\image_post;
 use App\Models\post;
-use App\Http\Requests\StorepostRequest;
-use App\Http\Requests\UpdatepostRequest;
+use Illuminate\Support\Str;
 use App\Models\type_post;
 use Illuminate\Http\Request;
 
@@ -32,16 +32,27 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->hasfile('images'))
-         {
-            foreach($request->file('images') as $key => $file)
-            {
-                $path = $file->store('public/files');
-                $name = $file->getClientOriginalName();
-                $insert[$key]['name'] = $name;
-                $insert[$key]['store_path'] = $path;
-            }
-         }
+        $posts = post::query()
+            ->create([
+                'admins_id'     => session()->get('id'),
+                'title'         => $request->get('title'),
+                'price'         => $request->get('price'),
+                'price_type'    => $request->get('price_type'),
+                'size'          => $request->get('size'),
+                'address'       => $request->get('address'),
+                'description1'  => $request->get('description1'),
+                'description2'  => $request->get('description2'),
+                'type'          => $request->get('type'),
+            ]);
+        foreach($request->file('photos') as $file){
+            $name = now()->timestamp . Str::random(20) .".". pathinfo($file->getClientOriginalName() , PATHINFO_EXTENSION);
+            $file->move(public_path()."/images/post/", $name);  
+            image_post::query()
+                ->create([
+                    'posts_id'  => $posts->id,
+                    'img'       => $name,
+                ]);
+        }
     }
 
     /**
@@ -50,7 +61,7 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorepostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorepostRequest $request)
+    public function store()
     {
         //
     }
@@ -84,7 +95,7 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatepostRequest $request, post $post)
+    public function update()
     {
         //
     }

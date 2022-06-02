@@ -9,4 +9,8 @@ class image_post extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'posts_id',
+        'img',
+    ];
 }
