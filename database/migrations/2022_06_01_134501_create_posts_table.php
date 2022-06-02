@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->float('price');
             $table->tinyInteger('price_type');
+            $table->float('size');
             $table->string('address');
             $table->string('description1');
             $table->text('description2');

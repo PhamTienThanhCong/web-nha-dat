@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\post;
 use App\Http\Requests\StorepostRequest;
 use App\Http\Requests\UpdatepostRequest;
+use App\Models\type_post;
 
 class PostController extends Controller
 {
@@ -15,7 +16,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('content.seller.addPost');
+        $types = type_post::query()
+                ->select('*')
+                ->get();
+        return view('content.seller.addPost',[
+            'types' => $types,
+        ]);
     }
 
     /**

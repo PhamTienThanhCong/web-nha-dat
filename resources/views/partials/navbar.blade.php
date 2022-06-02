@@ -39,7 +39,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.managerTag') }}">
           <span class="menu-title">Quản lý thẻ tag</span>
           <i class="mdi mdi-grease-pencil menu-icon"></i>
         </a>

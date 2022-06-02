@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\TypePostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +32,8 @@ Route::get('/admin/quan-ly-seller', [AdminController::class, 'showAll'])->name('
 Route::get('/admin/quan-ly-seller/xem-nhan-vien-ma-{admin_id}', [AdminController::class, 'show_one'])->name('admin.viewSeller');
 Route::get('/admin/quan-ly-seller/xem-nhan-vien-ma-{admin_id}/cap-nhap-{type}', [AdminController::class, 'edit'])->name('admin.SellerUpdate');
 
+Route::get('/admin/quan-ly-the-tag', [TypePostController::class, 'index'])->name('admin.managerTag');
+Route::post('/admin/quan-ly-the-tag/them-the-moi', [TypePostController::class, 'create'])->name('admin.createTag');
+Route::get('/admin/quan-ly-the-tag/xoa-the-{tag_id}', [TypePostController::class, 'destroy'])->name('admin.destroyTag');
 
 Route::get('moi-gioi/tao-bai-dang', [PostController::class, 'index'])->name('seller.create_post');

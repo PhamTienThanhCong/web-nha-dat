@@ -3,84 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\type_post;
-use App\Http\Requests\Storetype_postRequest;
-use App\Http\Requests\Updatetype_postRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TypePostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $types = type_post::query()
+                ->select('*')
+                ->get();
+        return view('content.admin.managerTag',[
+            'types' => $types,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            $slug = Str::of($request->get('link_name'))->slug('-');
+            type_post::query()
+            ->create([
+                'link_name' => $request->get('link_name'),
+                'link'      => $slug,
+            ]);
+            return redirect()->route('admin.managerTag')->with('success','Thêm thẻ thành công');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.managerTag')->with('error','Thêm thẻ thất bại. kiểm tra trùng');
+        }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storetype_postRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storetype_postRequest $request)
+    
+    public function destroy(type_post $tag_id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\type_post  $type_post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(type_post $type_post)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\type_post  $type_post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(type_post $type_post)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatetype_postRequest  $request
-     * @param  \App\Models\type_post  $type_post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatetype_postRequest $request, type_post $type_post)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\type_post  $type_post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(type_post $type_post)
-    {
-        //
+        $tag_id->delete();
+        return redirect()->route('admin.managerTag')->with('success','Xóa thẻ thành công');
     }
 }

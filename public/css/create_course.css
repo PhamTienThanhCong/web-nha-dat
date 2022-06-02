@@ -1,0 +1,8 @@
+#group-img{
+    width: 100%;
+    margin: -10px;
+}
+#group-img img{
+    height: 120px;
+    margin: 10px;
+}
