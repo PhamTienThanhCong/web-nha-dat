@@ -37,3 +37,4 @@ Route::post('/admin/quan-ly-the-tag/them-the-moi', [TypePostController::class, '
 Route::get('/admin/quan-ly-the-tag/xoa-the-{tag_id}', [TypePostController::class, 'destroy'])->name('admin.destroyTag');
 
 Route::get('moi-gioi/tao-bai-dang', [PostController::class, 'index'])->name('seller.create_post');
+Route::post('moi-gioi/tao-bai-dang/xu-ly', [PostController::class, 'create'])->name('seller.create_post_process');

@@ -6,6 +6,7 @@ use App\Models\post;
 use App\Http\Requests\StorepostRequest;
 use App\Http\Requests\UpdatepostRequest;
 use App\Models\type_post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -29,9 +30,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if($request->hasfile('images'))
+         {
+            foreach($request->file('images') as $key => $file)
+            {
+                $path = $file->store('public/files');
+                $name = $file->getClientOriginalName();
+                $insert[$key]['name'] = $name;
+                $insert[$key]['store_path'] = $path;
+            }
+         }
     }
 
     /**
