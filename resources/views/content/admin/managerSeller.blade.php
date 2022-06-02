@@ -17,16 +17,16 @@
             <br>
             <form class="form-group">
                 <select class="form-control" id="exampleFormControlSelect2" name="check" value="{{ $type }}">
-                    <option value="2" @if ($type == "2")
+                    <option value="3" @if ($type == "3")
                         selected="selected"
                     @endif >--Tất cả nhân viên--</option>
-                    <option value="4" @if ($type == "4")
+                    <option value="1" @if ($type == "1")
                         selected="selected"
                     @endif >--Đang chờ--</option>
-                    <option value="1"  @if ($type == "1")
+                    <option value="2"  @if ($type == "2")
                         selected="selected"
                     @endif >--Đang tham gia--</option>
-                    <option value="3"  @if ($type == "3")
+                    <option value="0"  @if ($type == "0")
                         selected="selected"
                     @endif >--Đang bị chặn--</option>
                 </select>
@@ -58,27 +58,27 @@
                         <tr>
                             <td class="py-1">
                                 {{-- <img src="{{ asset('img/profile.jpg') }}" alt="image"> --}}
-                                <img src="{{ asset("images/avatar/".$admin->image) }}" style="object-fit: cover;object-position: center;" alt="image">
+                                <img src="{{ asset("images/avatar/".$admin->avatar) }}" style="object-fit: cover;object-position: center;" alt="image">
                             </td>
                             <td> {{ $admin->name }} </td>
                             <td>
-                                @if ($admin->lever == 0)
+                                @if ($admin->level == 1)
                                     <label class="badge badge-warning">Đang chờ</label>
-                                @elseif ($admin->lever == 1)
+                                @elseif ($admin->level == 2)
                                     <label class="badge badge-primary">Đang tham gia</label>
-                                @elseif ($admin->lever == 3)
+                                @elseif ($admin->level == 0)
                                     <label class="badge badge-danger">Đang chặn</label>
                                 @endif
 
                             </td>
                             <td> 
-                                <a href="{{ route('admin.managerCourse', $admin->name) }}">
-                                    {{ $admin->number - 1 }} khóa
+                                <a href="">
+                                    {{-- {{ $admin->number - 1 }} khóa --}}
                                 </a>
                             </td>
                             <td> {{ date('d-m-Y', strtotime($admin->created_at)) }} </td>
                             <td>
-                                <a href="{{ route('admin.viewSeller', $admin->id) }}">
+                                <a href="">
                                     Xem
                                 </a>
                             </td>

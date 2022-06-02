@@ -24,3 +24,5 @@ Route::get('/admin/tai-khoan-cua-toi', [AdminController::class, 'show'])->name('
 Route::get('/moi-gioi/tai-khoan-cua-toi', [AdminController::class, 'show'])->name('seller.myAccount');
 Route::put('/admin/update', [AdminController::class, 'update'])->name('admin.myAccountUpdate');
 Route::put('/admin/update-password', [AdminController::class, 'updatePassword'])->name('admin.myAccountUpdatePassword');
+
+Route::get('/admin/quan-ly-seller', [AdminController::class, 'showAll'])->name('admin.managerSeller');

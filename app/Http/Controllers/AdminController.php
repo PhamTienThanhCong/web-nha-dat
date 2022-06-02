@@ -6,6 +6,7 @@ use App\Models\admin;
 use App\Http\Requests\StoreadminRequest;
 use App\Http\Requests\UpdateadminRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -72,6 +73,34 @@ class AdminController extends Controller
         $admin = admin::find(session()->get('id'));
         return view('content.admin.myAccount',[
             'admin' => $admin,
+        ]);
+    }
+
+    public function showAll(Request $request){
+        $s = $request->get('search');
+        $t = $request->get('check');
+
+        $Show = ["0","1","2"];
+        
+        if ($t != "3" && $t != ""){
+            $Show = [$t];
+        }
+
+        $admins = DB::table('admins')
+            ->select('*')
+            ->where('admins.name', 'like', "%".$s."%")
+            ->whereIn('admins.level', $Show)
+            ->paginate(10);
+
+        $admins->appends([
+           'search' => $s,
+           'check' => $t,
+        ]);
+
+        return view('content.admin.managerSeller',[
+            'data'      => $admins,
+            'search'    => $s,
+            'type'      => $t,
         ]);
     }
 

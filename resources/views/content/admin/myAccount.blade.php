@@ -6,6 +6,14 @@
 
 @section('title')
     Tài khoản của tôi
+    @if (Session::get('level') == 1)
+        <style>
+            .alow_link{
+                pointer-events: none;
+                cursor: not-allowed;
+            }
+        </style>
+    @endif
 @stop
 
 @section('content')
@@ -18,6 +26,9 @@
                 @endif
                 @if(Session::has('success'))
                     <h4 class="text-success">{{ Session::get('success') }}</h4>
+                @endif
+                @if (Session::get('level') == '1')
+                    <h4 class="text-warning">Tài khoản của bạn đang chờ được xác minh</h4>
                 @endif
                 <p class="card-description"> Tài khoản của {{ Session::get('name') }} </p>
                 <br>
