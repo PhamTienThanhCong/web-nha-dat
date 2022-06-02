@@ -1,7 +1,7 @@
 @extends('template.admin')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/seller/my_account.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/my_account.css') }}">
 @stop
 
 @section('title')
@@ -20,10 +20,13 @@
             @if(Session::has('success'))
                 <h4 class="text-success">{{ Session::get('success') }}</h4>
             @endif
-            <p class="card-description"> Tài khoản của {{ $admin->name }} </p>
+            <p class="card-description"> 
+                <a href="{{ route('admin.managerSeller') }}">Quản lý Nhân viên</a> <span> / </span>
+                Tài khoản của {{ $admin->name }} 
+            </p>
             <br>
             <div class="avatar-preview">
-                <img width="100%" height="100%" src="{{ asset("images/avatar/".$admin->image) }}" alt="">
+                <img width="100%" height="100%" src="{{ asset("images/avatar/".$admin->avatar) }}" alt="">
             </div>
             <div class="name-preview">
                 <h3>
@@ -32,17 +35,41 @@
             </div>
             <div class="infor-preview">
                 <div class="email-preview">
+                    <i class="mdi mdi-wallet-travel" style="font-size: 18px"></i>
+                    Công ty: 
+                    @if ($admin->company == null)
+                        <span style="color: red">Trường này còn thiếu</span>
+                    @else
+                        {{ $admin->company }}
+                    @endif
+                </div>
+                <div class="email-preview">
                     <i class="mdi mdi-email-outline" style="font-size: 18px"></i>
                     Email: {{ $admin->email }}
                 </div>
-                <br>
-                <div class="description-preview">
-                    Công ty {{ $admin->company }}
+                <div class="email-preview">
+                    <i class="mdi mdi-phone" style="font-size: 18px"></i>
+                    Số điện thoại:
+                    @if ($admin->phone_number == null)
+                        <span style="color: red">Trường này còn thiếu</span>
+                    @else
+                        {{ $admin->phone_number }}
+                    @endif
                 </div>
+                <div class="email-preview">
+                    <i class="mdi mdi-google-maps" style="font-size: 18px"></i>
+                    Địa chỉ:
+                    @if ($admin->address == null)
+                        <span style="color: red">Trường này còn thiếu</span>
+                    @else
+                        {{ $admin->address }}
+                    @endif
+                </div>
+                <br>
             </div>
             <div class="result-account">
                 <div class="box-result"> 
-                    <a href="{{ route('admin.managerCourse', $admin->name) }}" style="text-decoration: none; color: #343A40;">
+                    <a href="" style="text-decoration: none; color: #343A40;">
                         <h1>
                             {{-- {{ $admin->number_courses }} --}}
                         </h1>
@@ -72,25 +99,25 @@
                 <button class="btn btn-gradient-info btn-fw" style="margin: auto;" onclick="contacts()">
                     Liên hệ ngay
                 </button>
-                @if ($admin->lever == 0)
-                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 1, $admin->token]) }}">
+                @if ($admin->level == '1')
+                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 2]) }}">
                         <button class="btn btn-outline-success btn-fw" style="margin: auto;" onclick="Block()">
                             Duyệt seller
                         </button>
                     </a>
-                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 4, $admin->token]) }}">
+                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 4]) }}">
                         <button class="btn btn-gradient-dark btn-fw" style="margin: auto;" onclick="Block()">
                             Hủy seller
                         </button>
                     </a>
-                @elseif ($admin->lever == 1)
-                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 3, $admin->token]) }}">
+                @elseif ($admin->level == '2')
+                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 0]) }}">
                         <button class="btn btn-gradient-dark btn-fw" style="margin: auto;" onclick="Block()">
                             Chặn seller
                         </button>
                     </a>
-                @elseif ($admin->lever == 3)
-                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 1, $admin->token]) }}">
+                @elseif ($admin->level =='0')
+                    <a href="{{ route('admin.SellerUpdate', [$admin->id, 2]) }}">
                         <button class="btn btn-outline-info btn-fw" style="margin: auto;" onclick="Block()">
                             Hủy chặn seller
                         </button>

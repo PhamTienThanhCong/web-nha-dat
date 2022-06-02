@@ -81,8 +81,9 @@ class AdminController extends Controller
         $t = $request->get('check');
 
         $Show = ["0","1","2"];
-        
-        if ($t != "3" && $t != ""){
+        if ($t == "0"){
+            $Show = ["0"];
+        }else if ($t != "3" && $t != ""){
             $Show = [$t];
         }
 
@@ -104,9 +105,20 @@ class AdminController extends Controller
         ]);
     }
 
-    public function edit($admin, $type)
+    public function show_one($admin_id)
     {
-        
+        $admin = admin::find($admin_id);
+        return view('content.admin.ViewSeller',[
+            'admin' => $admin,
+        ]);
+    }
+
+    public function edit($admin_id, $type)
+    {
+        $admin = admin::find($admin_id);
+        $admin->level = $type;
+        $admin->save();
+        return redirect()->route('admin.viewSeller', $admin_id)->with('success','Cập nhập tài khoản thành công');
     }
 
     public function update(Request $request)

@@ -13,7 +13,7 @@
     {{-- Bảng Nhân Viên --}}
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Danh sách nhân viên: {{ $data->total() }} nhân viên</h4>
+            <h4 class="card-title">Danh sách môi giới: {{ $data->total() }} người</h4>
             <br>
             <form class="form-group">
                 <select class="form-control" id="exampleFormControlSelect2" name="check" value="{{ $type }}">
@@ -46,9 +46,9 @@
                 <thead>
                     <tr>
                         <th> Avatar </th>
-                        <th> Name </th>
+                        <th> Tên </th>
                         <th> Trạng thái </th>
-                        <th> Khóa học </th>
+                        <th> Số bài đăng </th>
                         <th> Ngày ra nhập </th>
                         <th> Xem </th>
                     </tr>
@@ -78,7 +78,7 @@
                             </td>
                             <td> {{ date('d-m-Y', strtotime($admin->created_at)) }} </td>
                             <td>
-                                <a href="">
+                                <a href="{{ route('admin.viewSeller', $admin->id) }}">
                                     Xem
                                 </a>
                             </td>

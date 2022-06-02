@@ -26,3 +26,5 @@ Route::put('/admin/update', [AdminController::class, 'update'])->name('admin.myA
 Route::put('/admin/update-password', [AdminController::class, 'updatePassword'])->name('admin.myAccountUpdatePassword');
 
 Route::get('/admin/quan-ly-seller', [AdminController::class, 'showAll'])->name('admin.managerSeller');
+Route::get('/admin/quan-ly-seller/xem-nhan-vien-ma-{admin_id}', [AdminController::class, 'show_one'])->name('admin.viewSeller');
+Route::get('/admin/quan-ly-seller/xem-nhan-vien-ma-{admin_id}/cap-nhap-{type}', [AdminController::class, 'edit'])->name('admin.SellerUpdate');
