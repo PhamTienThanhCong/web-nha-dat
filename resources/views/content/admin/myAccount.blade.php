@@ -32,7 +32,12 @@
                 <div class="infor-preview">
                     <div class="email-preview">
                         <i class="mdi mdi-wallet-travel" style="font-size: 18px"></i>
-                        Công ty: {{ $admin->email }}
+                        Công ty: 
+                        @if ($admin->company == null)
+                            <span style="color: red">Trường này còn thiếu</span>
+                        @else
+                            {{ $admin->company }}
+                        @endif
                     </div>
                     <div class="email-preview">
                         <i class="mdi mdi-email-outline" style="font-size: 18px"></i>
@@ -40,7 +45,21 @@
                     </div>
                     <div class="email-preview">
                         <i class="mdi mdi-phone" style="font-size: 18px"></i>
-                        Số điện thoại: {{ $admin->phone_number }}
+                        Số điện thoại:
+                        @if ($admin->phone_number == null)
+                            <span style="color: red">Trường này còn thiếu</span>
+                        @else
+                            {{ $admin->phone_number }}
+                        @endif
+                    </div>
+                    <div class="email-preview">
+                        <i class="mdi mdi-google-maps" style="font-size: 18px"></i>
+                        Địa chỉ:
+                        @if ($admin->address == null)
+                            <span style="color: red">Trường này còn thiếu</span>
+                        @else
+                            {{ $admin->address }}
+                        @endif
                     </div>
                     <br>
                 </div>
@@ -51,7 +70,7 @@
                                 {{-- {{ $admin->number_course }} --}}
                             </h1>
                             <p>
-                                khóa học
+                                Bài đăng
                             </p>
                         </div>
                         <div class="box-result"> 
@@ -59,7 +78,7 @@
                                 {{-- {{ $course->number_order }} --}}
                             </h1>
                             <p>
-                                đã bán
+                                Đã chốt
                             </p>
                         </div>
                         <div class="box-result"> 
@@ -67,7 +86,7 @@
                                 {{-- {{ round($course->number_rate, 2) }} --}}
                             </h1>
                             <p>
-                                đánh giá
+                                Hỏi giá
                             </p>
                         </div>
                     </div>

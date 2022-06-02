@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label>Ảnh đại diện mới</label>
                     <div class="input-group col-xs-12">
-                        <input type="file" name="image" class="form-control file-upload-info"
+                        <input type="file" name="avatar" class="form-control file-upload-info"
                             placeholder="Upload Image">
                     </div>
                 </div>

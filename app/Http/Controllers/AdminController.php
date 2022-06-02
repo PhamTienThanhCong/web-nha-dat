@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    public function session_save($id, $name, $avatar, $level){
+        session()->put('id', $id);
+        session()->put('name', $name);
+        session()->put('avatar', $avatar);
+        session()->put('level', $level);
+    }
     public function login()
     {
         return view('auth.loginAdmin');
@@ -26,22 +32,18 @@ class AdminController extends Controller
                 ->where('email', $request->get('email'))
                 ->firstOrFail();
             if (!Hash::check($request->get('password'), $user->password)){ 
-                return redirect()->route('user.login')->with('error-login','Tài khoản hoặc mật khẩu không đúng');
+                return redirect()->route('admin.login')->with('error','Tài khoản hoặc mật khẩu không đúng');
             }
-            session()->put('login', 'true');
-            session()->put('id', $user->id);
-            session()->put('name', $user->name);
-            session()->put('avatar', $user->avatar);
-            session()->put('level', $user->level);
+            $this->session_save($user->id,$user->name,$user->avatar,$user->level);
             if($user->level == 1 || $user->level == 2){
                 return redirect()->route('seller.myAccount');
             }elseif($user->level == 3){
                 return redirect()->route('admin.myAccount');
             }else{
-                return redirect()->route('admin.login')->with('error-login','Tài khoản của bạn đang bị cấm vui lòng đăng nhập sau');
+                return redirect()->route('admin.login')->with('error','Tài khoản của bạn đang bị cấm vui lòng đăng nhập sau');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('user.login')->with('error-login','Tài khoản hoặc mật khẩu không đúng');
+            return redirect()->route('admin.login')->with('error','Tài khoản hoặc mật khẩu không đúng');
         }
     }
 
@@ -50,9 +52,9 @@ class AdminController extends Controller
         try {
             admin::query()
             ->create([
-                'name'  => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => Hash::make($request->get('password')),
+                'name'      => $request->get('name'),
+                'email'     => $request->get('email'),
+                'password'  => Hash::make($request->get('password')),
             ]);
             return redirect()->route('admin.login')->with('success','Đăng kí tài khoản thành công');
         } catch (\Throwable $th) {
@@ -73,18 +75,46 @@ class AdminController extends Controller
         ]);
     }
 
-    public function edit(admin $admin)
+    public function edit($admin, $type)
     {
-        //
+        
     }
 
-    public function update(UpdateadminRequest $request, admin $admin)
+    public function update(Request $request)
     {
-        //
+        try {
+            $admin = admin::find(session()->get('id'));
+            if (request()->avatar != null){
+                $filename = $admin->name.'.'.time().'.'.request()->avatar->getClientOriginalExtension();
+                request()->avatar->move(public_path('images\avatar'), $filename);
+                $admin->avatar = $filename;
+            }
+            $admin->name            = $request->get('name');
+            $admin->email           = $request->get('email');
+            $admin->phone_number    = $request->get('phone_number');
+            $admin->company         = $request->get('company');
+            $admin->address         = $request->get('address');
+            $admin->save();
+            $this->session_save($admin->id,$admin->name,$admin->avatar,$admin->level);
+            if ($admin->level == 3){
+                return redirect()->route('admin.myAccount')->with('success','Chỉnh sửa thông tin thành công');
+            }
+            return redirect()->route('seller.myAccount')->with('success','Chỉnh sửa thông tin thành công');
+        } catch (\Throwable $th) {
+            if (session()->get('level') == 3){
+                return redirect()->route('admin.myAccount')->with('error','Chỉnh sửa thông tin thất bại. trùng email');
+            }
+            return redirect()->route('seller.myAccount')->with('error','Chỉnh sửa thông tin thất bại. trùng email');
+        }
+    }
+    public function updatePassword(Request $request){
+        $admin = admin::find(session()->get('id'));
+        if (!Hash::check($request->get('password'), $admin->password)){
+            return redirect()->route('admin.myAccount')->with('error','Mật khẩu không đúng, vui lòng nhập lại để thay đổi');
+        }
+        $admin->password = Hash::make($request->get('password2'));
+        $admin->save();
+        return redirect()->route('admin.myAccount')->with('success','Đổi mật khẩu tài khoản thành công');
     }
 
-    public function destroy(admin $admin)
-    {
-        //
-    }
 }

@@ -22,5 +22,5 @@ Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.log
 
 Route::get('/admin/tai-khoan-cua-toi', [AdminController::class, 'show'])->name('admin.myAccount');
 Route::get('/moi-gioi/tai-khoan-cua-toi', [AdminController::class, 'show'])->name('seller.myAccount');
-Route::post('/admin/update', [AdminController::class, 'update'])->name('admin.myAccountUpdate');
-Route::post('/admin/update-password', [AdminController::class, 'update'])->name('admin.myAccountUpdatePassword');
+Route::put('/admin/update', [AdminController::class, 'update'])->name('admin.myAccountUpdate');
+Route::put('/admin/update-password', [AdminController::class, 'updatePassword'])->name('admin.myAccountUpdatePassword');
