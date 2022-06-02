@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,6 @@ Route::put('/admin/update-password', [AdminController::class, 'updatePassword'])
 Route::get('/admin/quan-ly-seller', [AdminController::class, 'showAll'])->name('admin.managerSeller');
 Route::get('/admin/quan-ly-seller/xem-nhan-vien-ma-{admin_id}', [AdminController::class, 'show_one'])->name('admin.viewSeller');
 Route::get('/admin/quan-ly-seller/xem-nhan-vien-ma-{admin_id}/cap-nhap-{type}', [AdminController::class, 'edit'])->name('admin.SellerUpdate');
+
+
+Route::get('moi-gioi/tao-bai-dang', [PostController::class, 'index'])->name('seller.create_post');

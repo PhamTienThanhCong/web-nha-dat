@@ -46,7 +46,7 @@
       </li>
     @else
       <li class="nav-item alow_link}}">
-          <a class="nav-link alow_link" href="">
+          <a class="nav-link alow_link" href="{{ route('seller.create_post') }}">
             <span class="menu-title">Tạo bài đăng</span>
             <i class="mdi mdi-border-color menu-icon"></i>
           </a>
